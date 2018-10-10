@@ -3,14 +3,14 @@ using System.Xml;
 using System.Text;
 using System.Collections.Generic;
 
-namespace AIMLbot.AIMLTagHandlers
+namespace AIMLBot.Core.AIMLTagHandlers
 {
     /// <summary>
     /// The random element instructs the AIML interpreter to return exactly one of its contained li 
     /// elements randomly. The random element must contain one or more li elements of type 
     /// defaultListItem, and cannot contain any other elements.
     /// </summary>
-    public class random : AIMLbot.Utils.AIMLTagHandler
+    public class random : AIMLBot.Core.Utils.AIMLTagHandler
     {
         /// <summary>
         /// Ctor
@@ -21,11 +21,11 @@ namespace AIMLbot.AIMLTagHandlers
         /// <param name="request">The request inputted into the system</param>
         /// <param name="result">The result to be passed to the user</param>
         /// <param name="templateNode">The node to be processed</param>
-        public random(AIMLbot.Bot bot,
-                        AIMLbot.User user,
-                        AIMLbot.Utils.SubQuery query,
-                        AIMLbot.Request request,
-                        AIMLbot.Result result,
+        public random(AIMLBot.Core.Bot bot,
+                        AIMLBot.Core.User user,
+                        AIMLBot.Core.Utils.SubQuery query,
+                        AIMLBot.Core.Request request,
+                        AIMLBot.Core.Result result,
                         XmlNode templateNode)
             : base(bot, user, query, request, result, templateNode)
         {

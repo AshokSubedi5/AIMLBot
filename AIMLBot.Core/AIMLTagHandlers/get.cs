@@ -2,7 +2,7 @@ using System;
 using System.Xml;
 using System.Text;
 
-namespace AIMLbot.AIMLTagHandlers
+namespace AIMLBot.Core.AIMLTagHandlers
 {
     /// <summary>
     /// The get element tells the AIML interpreter that it should substitute the contents of a 
@@ -20,7 +20,7 @@ namespace AIMLbot.AIMLTagHandlers
     /// 
     /// The get element does not have any content.
     /// </summary>
-    public class get : AIMLbot.Utils.AIMLTagHandler
+    public class get : AIMLBot.Core.Utils.AIMLTagHandler
     {
         /// <summary>
         /// Ctor
@@ -31,11 +31,11 @@ namespace AIMLbot.AIMLTagHandlers
         /// <param name="request">The request inputted into the system</param>
         /// <param name="result">The result to be passed to the user</param>
         /// <param name="templateNode">The node to be processed</param>
-        public get(AIMLbot.Bot bot,
-                        AIMLbot.User user,
-                        AIMLbot.Utils.SubQuery query,
-                        AIMLbot.Request request,
-                        AIMLbot.Result result,
+        public get(AIMLBot.Core.Bot bot,
+                        AIMLBot.Core.User user,
+                        AIMLBot.Core.Utils.SubQuery query,
+                        AIMLBot.Core.Request request,
+                        AIMLBot.Core.Result result,
                         XmlNode templateNode)
             : base(bot, user, query, request, result, templateNode)
         {
@@ -53,6 +53,10 @@ namespace AIMLbot.AIMLTagHandlers
                         {
                             return this.user.Predicates.grabSetting(this.templateNode.Attributes[0].Value);
                         }
+                    }
+                    else if (this.templateNode.InnerText.Length > 0)
+                    {
+                        return this.user.Predicates.grabSetting(this.templateNode.InnerText.Trim());
                     }
                 }
             }

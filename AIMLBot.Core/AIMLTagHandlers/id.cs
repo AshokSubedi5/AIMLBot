@@ -2,7 +2,7 @@ using System;
 using System.Xml;
 using System.Text;
 
-namespace AIMLbot.AIMLTagHandlers
+namespace AIMLBot.Core.AIMLTagHandlers
 {
     /// <summary>
     /// The id element tells the AIML interpreter that it should substitute the user ID. 
@@ -11,7 +11,7 @@ namespace AIMLbot.AIMLTagHandlers
     /// 
     /// The id element does not have any content.
     /// </summary>
-    public class id : AIMLbot.Utils.AIMLTagHandler
+    public class id : AIMLBot.Core.Utils.AIMLTagHandler
     {
         /// <summary>
         /// Ctor
@@ -22,11 +22,11 @@ namespace AIMLbot.AIMLTagHandlers
         /// <param name="request">The request inputted into the system</param>
         /// <param name="result">The result to be passed to the user</param>
         /// <param name="templateNode">The node to be processed</param>
-        public id(AIMLbot.Bot bot,
-                        AIMLbot.User user,
-                        AIMLbot.Utils.SubQuery query,
-                        AIMLbot.Request request,
-                        AIMLbot.Result result,
+        public id(AIMLBot.Core.Bot bot,
+                        AIMLBot.Core.User user,
+                        AIMLBot.Core.Utils.SubQuery query,
+                        AIMLBot.Core.Request request,
+                        AIMLBot.Core.Result result,
                         XmlNode templateNode)
             : base(bot, user, query, request, result, templateNode)
         {

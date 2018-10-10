@@ -2,7 +2,7 @@ using System;
 using System.Xml;
 using System.Text;
 
-namespace AIMLbot.AIMLTagHandlers
+namespace AIMLBot.Core.AIMLTagHandlers
 {
     /// <summary>
     /// The set element instructs the AIML interpreter to set the value of a predicate to the result 
@@ -21,7 +21,7 @@ namespace AIMLbot.AIMLTagHandlers
     /// 
     /// A set element may contain any AIML template elements.
     /// </summary>
-    public class set : AIMLbot.Utils.AIMLTagHandler
+    public class set : AIMLBot.Core.Utils.AIMLTagHandler
     {
         /// <summary>
         /// Ctor
@@ -32,11 +32,11 @@ namespace AIMLbot.AIMLTagHandlers
         /// <param name="request">The request inputted into the system</param>
         /// <param name="result">The result to be passed to the user</param>
         /// <param name="templateNode">The node to be processed</param>
-        public set(AIMLbot.Bot bot,
-                        AIMLbot.User user,
-                        AIMLbot.Utils.SubQuery query,
-                        AIMLbot.Request request,
-                        AIMLbot.Result result,
+        public set(AIMLBot.Core.Bot bot,
+                        AIMLBot.Core.User user,
+                        AIMLBot.Core.Utils.SubQuery query,
+                        AIMLBot.Core.Request request,
+                        AIMLBot.Core.Result result,
                         XmlNode templateNode)
             : base(bot, user, query, request, result, templateNode)
         {

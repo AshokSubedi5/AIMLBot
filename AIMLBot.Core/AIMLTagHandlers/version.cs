@@ -2,7 +2,7 @@ using System;
 using System.Xml;
 using System.Text;
 
-namespace AIMLbot.AIMLTagHandlers
+namespace AIMLBot.Core.AIMLTagHandlers
 {
     /// <summary>
     /// The version element tells the AIML interpreter that it should substitute the version number
@@ -10,7 +10,7 @@ namespace AIMLbot.AIMLTagHandlers
     /// 
     /// The version element does not have any content. 
     /// </summary>
-    public class version : AIMLbot.Utils.AIMLTagHandler
+    public class version : AIMLBot.Core.Utils.AIMLTagHandler
     {
         /// <summary>
         /// Ctor
@@ -21,11 +21,11 @@ namespace AIMLbot.AIMLTagHandlers
         /// <param name="request">The request inputted into the system</param>
         /// <param name="result">The result to be passed to the user</param>
         /// <param name="templateNode">The node to be processed</param>
-        public version(AIMLbot.Bot bot,
-                        AIMLbot.User user,
-                        AIMLbot.Utils.SubQuery query,
-                        AIMLbot.Request request,
-                        AIMLbot.Result result,
+        public version(AIMLBot.Core.Bot bot,
+                        AIMLBot.Core.User user,
+                        AIMLBot.Core.Utils.SubQuery query,
+                        AIMLBot.Core.Request request,
+                        AIMLBot.Core.Result result,
                         XmlNode templateNode)
             : base(bot, user, query, request, result, templateNode)
         {

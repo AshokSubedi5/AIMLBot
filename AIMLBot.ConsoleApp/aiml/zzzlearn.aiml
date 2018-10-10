@@ -1,0 +1,78 @@
+<!--temporary files-->
+<aiml>
+  <category>
+    <pattern>google *</pattern>
+    <template>
+      <websearch>
+        <star />
+      </websearch>
+    </template>
+  </category>
+  <category>
+    <pattern>search *</pattern>
+    <template>
+      <websearch>
+        <star />
+      </websearch>
+    </template>
+  </category>
+  <category>
+    <pattern>RELOAD AIML</pattern>
+    <template>
+      Okay.
+      <think>
+        <learn name="fromfile">aiml</learn>
+      </think>
+    </template>
+  </category>
+  <category>
+    <pattern>LEARN * IS *</pattern>
+    <template>
+      Ok I will learn that <star index="2"/> is <star index="1"/>.
+      <learn name="fromtag">
+        <star index="2"/>,
+        <star index="1"/>
+      </learn>
+    </template>
+  </category>
+
+  <category>
+    <pattern>* is *</pattern>
+    <template>
+      You said <star index="1"/> is <get>
+        <star index="1"/>
+      </get>
+    </template>
+  </category>
+
+  <category>
+    <pattern>what is a</pattern>
+    <template>
+      <date format ="MM/dd/yyyy"></date>
+    </template>
+  </category>
+
+  <category>
+    <pattern>day</pattern>
+    <template>
+      Today is <date format ="dd MMM, yyyy"></date>
+    </template>
+  </category>
+
+  <category>
+    <pattern>News *</pattern>
+    <template>
+      <news description="true"></news>
+    </template>
+  </category>
+
+  <category>
+    <pattern>quote</pattern>
+    <pattern>* quote *</pattern>
+    <pattern>quote *</pattern>
+    <pattern>* quote</pattern>
+    <template>
+      <quote />
+    </template>
+  </category>
+</aiml>

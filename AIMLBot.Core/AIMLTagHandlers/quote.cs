@@ -1,18 +1,19 @@
-using System;
-using System.Xml;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Text;
+using System.Xml;
 
 namespace AIMLBot.Core.AIMLTagHandlers
 {
     /// <summary>
-    /// The uppercase element tells the AIML interpreter to render the contents of the element
-    /// in uppercase, as defined (if defined) by the locale indicated by the specified language
-    /// if specified).
+    /// The quote element get random quote from server
+    /// of the AIML interpreter.
     /// 
-    /// If no character in this string has a different uppercase version, based on the Unicode 
-    /// standard, then the original string is returned. 
+    /// The quote element does not have any content. 
     /// </summary>
-    public class uppercase : AIMLBot.Core.Utils.AIMLTagHandler
+    public class quote : AIMLBot.Core.Utils.AIMLTagHandler
     {
         /// <summary>
         /// Ctor
@@ -23,7 +24,7 @@ namespace AIMLBot.Core.AIMLTagHandlers
         /// <param name="request">The request inputted into the system</param>
         /// <param name="result">The result to be passed to the user</param>
         /// <param name="templateNode">The node to be processed</param>
-        public uppercase(AIMLBot.Core.Bot bot,
+        public quote(AIMLBot.Core.Bot bot,
                         AIMLBot.Core.User user,
                         AIMLBot.Core.Utils.SubQuery query,
                         AIMLBot.Core.Request request,
@@ -35,11 +36,21 @@ namespace AIMLBot.Core.AIMLTagHandlers
 
         protected override string ProcessChange()
         {
-            if (this.templateNode.Name.ToLower() == "uppercase")
+            if (this.templateNode.Name.ToLower() == "quote")
             {
-                return this.templateNode.InnerText.ToUpper(this.bot.Locale);
+                return GetQuote();
             }
             return string.Empty;
+        }
+
+        private string GetQuote()
+        {
+            string address = "http://fullerdatasvc.azurewebsites.net/fortune/";
+            HttpWebRequest rssFeed = (HttpWebRequest)WebRequest.Create(address);
+            HttpWebResponse response = (HttpWebResponse)rssFeed.GetResponse();
+            StreamReader sr = new StreamReader(response.GetResponseStream());
+            
+            return sr.ReadToEnd();
         }
     }
 }

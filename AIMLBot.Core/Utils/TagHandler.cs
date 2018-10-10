@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 
-namespace AIMLbot.Utils
+namespace AIMLBot.Core.Utils
 {
     /// <summary>
     /// Encapsulates information about a custom tag class

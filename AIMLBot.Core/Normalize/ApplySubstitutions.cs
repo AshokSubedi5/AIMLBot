@@ -2,19 +2,19 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace AIMLbot.Normalize
+namespace AIMLBot.Core.Normalize
 {
     /// <summary>
     /// Checks the text for any matches in the bot's substitutions dictionary and makes
     /// any appropriate changes.
     /// </summary>
-    public class ApplySubstitutions : AIMLbot.Utils.TextTransformer
+    public class ApplySubstitutions : AIMLBot.Core.Utils.TextTransformer
     {
-        public ApplySubstitutions(AIMLbot.Bot bot, string inputString)
+        public ApplySubstitutions(AIMLBot.Core.Bot bot, string inputString)
             : base(bot, inputString)
         { }
 
-        public ApplySubstitutions(AIMLbot.Bot bot)
+        public ApplySubstitutions(AIMLBot.Core.Bot bot)
             : base(bot)
         { }
 
@@ -48,7 +48,7 @@ namespace AIMLbot.Normalize
         /// <param name="dictionary">The dictionary containing the substitutions</param>
         /// <param name="target">the target string to which the substitutions are to be applied</param>
         /// <returns>The processed string</returns>
-        public static string Substitute(AIMLbot.Bot bot, AIMLbot.Utils.SettingsDictionary dictionary, string target)
+        public static string Substitute(AIMLBot.Core.Bot bot, AIMLBot.Core.Utils.SettingsDictionary dictionary, string target)
         {
             string marker = ApplySubstitutions.getMarker(5);
             string result = target;

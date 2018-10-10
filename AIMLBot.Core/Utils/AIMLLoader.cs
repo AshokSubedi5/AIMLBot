@@ -4,7 +4,7 @@ using System.Xml;
 using System.IO;
 using System.Text;
 
-namespace AIMLbot.Utils
+namespace AIMLBot.Core.Utils
 {
     /// <summary>
     /// A utility class for loading AIML files from disk into the graphmaster structure that 
@@ -16,14 +16,14 @@ namespace AIMLbot.Utils
         /// <summary>
         /// The bot whose brain is being processed
         /// </summary>
-        private AIMLbot.Bot bot;
+        private AIMLBot.Core.Bot bot;
         #endregion
 
         /// <summary>
         /// Ctor
         /// </summary>
         /// <param name="bot">The bot whose brain is being processed</param>
-        public AIMLLoader(AIMLbot.Bot bot)
+        public AIMLLoader(AIMLBot.Core.Bot bot)
         {
             this.bot = bot;
         }
@@ -77,7 +77,7 @@ namespace AIMLbot.Utils
         public void loadAIMLFile(string filename)
         {
             this.bot.writeToLog("Processing AIML file: " + filename);
-            
+
             // load the document
             XmlDocument doc = new XmlDocument();
             doc.Load(filename);
@@ -119,8 +119,8 @@ namespace AIMLbot.Utils
         private void processTopic(XmlNode node, string filename)
         {
             // find the name of the topic or set to default "*"
-            string topicName="*";
-            if((node.Attributes.Count==1)&(node.Attributes[0].Name=="name"))
+            string topicName = "*";
+            if ((node.Attributes.Count == 1) & (node.Attributes[0].Name == "name"))
             {
                 topicName = node.Attributes["name"].Value;
             }
@@ -186,6 +186,11 @@ namespace AIMLbot.Utils
             {
                 this.bot.writeToLog("WARNING! Attempted to load a new category with an empty pattern where the path = " + categoryPath + " and template = " + template.OuterXml + " produced by a category in the file: " + filename);
             }
+            //check if another pattern also there
+            node.RemoveChild(pattern);
+            if (!object.Equals(null, this.FindNode("pattern", node)))
+                processCategory(node, topicName, filename);
+
         }
 
         /// <summary>
@@ -201,7 +206,6 @@ namespace AIMLbot.Utils
             // get the nodes that we need
             XmlNode pattern = this.FindNode("pattern", node);
             XmlNode that = this.FindNode("that", node);
-
             string patternText;
             string thatText = "*";
             if (object.Equals(null, pattern))
@@ -228,7 +232,7 @@ namespace AIMLbot.Utils
         /// <returns>The node (or null)</returns>
         private XmlNode FindNode(string name, XmlNode node)
         {
-            foreach(XmlNode child in node.ChildNodes)
+            foreach (XmlNode child in node.ChildNodes)
             {
                 if (child.Name == name)
                 {
@@ -236,6 +240,19 @@ namespace AIMLbot.Utils
                 }
             }
             return null;
+        }
+        private List<XmlNode> FindNodeList(string name, XmlNode node)
+        {
+            List<XmlNode> ls = new List<XmlNode>();
+            foreach (XmlNode child in node.ChildNodes)
+            {
+                if (child.Name == name)
+                {
+                    ls.Add(child);
+                }
+            }
+
+            return ls;
         }
 
         /// <summary>
@@ -255,7 +272,7 @@ namespace AIMLbot.Utils
             string normalizedThat = "*";
             string normalizedTopic = "*";
 
-            if ((this.bot.TrustAIML)&(!isUserInput))
+            if ((this.bot.TrustAIML) & (!isUserInput))
             {
                 normalizedPattern = pattern.Trim();
                 normalizedThat = that.Trim();
@@ -314,8 +331,8 @@ namespace AIMLbot.Utils
             StringBuilder result = new StringBuilder();
 
             // objects for normalization of the input
-            Normalize.ApplySubstitutions substitutor = new AIMLbot.Normalize.ApplySubstitutions(this.bot);
-            Normalize.StripIllegalCharacters stripper = new AIMLbot.Normalize.StripIllegalCharacters(this.bot);
+            Normalize.ApplySubstitutions substitutor = new AIMLBot.Core.Normalize.ApplySubstitutions(this.bot);
+            Normalize.StripIllegalCharacters stripper = new AIMLBot.Core.Normalize.StripIllegalCharacters(this.bot);
 
             string substitutedInput = substitutor.Transform(input);
             // split the pattern into it's component words
@@ -343,7 +360,7 @@ namespace AIMLbot.Utils
                 result.Append(normalizedWord.Trim() + " ");
             }
 
-            return result.ToString().Replace("  "," "); // make sure the whitespace is neat
+            return result.ToString().Replace("  ", " "); // make sure the whitespace is neat
         }
         #endregion
     }
