@@ -1,6 +1,6 @@
 using System;
 
-namespace AIMLbot.Utils
+namespace AIMLBot.Core.Utils
 {
     /// <summary>
     /// A custom attribute to be applied to all custom tags in external "late bound" dlls

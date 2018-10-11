@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.IO;
-using AIMLbot.Normalize;
+using AIMLBot.Core.Normalize;
 
-namespace AIMLbot.Utils
+namespace AIMLBot.Core.Utils
 {
     /// <summary>
     /// A bespoke Dictionary<,> for loading, adding, checking, removing and extracting
@@ -28,7 +28,7 @@ namespace AIMLbot.Utils
         /// <summary>
         /// The bot this dictionary is associated with
         /// </summary>
-        protected AIMLbot.Bot bot;
+        protected AIMLBot.Core.Bot bot;
 
         /// <summary>
         /// The number of items in the dictionary
@@ -74,7 +74,7 @@ namespace AIMLbot.Utils
         /// Ctor
         /// </summary>
         /// <param name="bot">The bot for whom this is a settings dictionary</param>
-        public SettingsDictionary(AIMLbot.Bot bot)
+        public SettingsDictionary(AIMLBot.Core.Bot bot)
         {
             this.bot = bot;
         }

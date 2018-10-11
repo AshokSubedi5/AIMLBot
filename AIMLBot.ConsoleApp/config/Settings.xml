@@ -3,6 +3,7 @@
   <item name="aimldirectory" value="aiml"/>
   <item name="configdirectory" value="config"/>
   <item name="logdirectory" value="logs"/>
+  <item name="userdirectory" value="aiml\\users" />
   <item name="splittersfile" value="Splitters.xml"/>
   <item name="person2substitutionsfile" value="Person2Substitutions.xml"/>
   <item name="personsubstitutionsfile" value="PersonSubstitutions.xml"/>
@@ -12,32 +13,32 @@
   <item name="maxlogbuffersize" value="64"/>
   <item name="notacceptinguserinputmessage" value="This bot is currently set to not accept user input."/>
   <item name="stripperregex" value="[^0-9a-zA-Z]"/>
-  <item name="version" value="Unknown"/>
-  <item name="name" value="Unknown"/>
-  <item name="botmaster" value="Unknown"/>
-  <item name="author" value="Nicholas H.Tollervey"/>
-  <item name="location" value="Unknown"/>
+  <item name="version" value="2.0.1.0"/>
+  <item name="name" value="bot"/>
+  <item name="botmaster" value="Ashok"/>
+  <item name="author" value="Ashok Subedi"/>
+  <item name="location" value="Nepal"/>
   <item name="gender" value="-1"/>
-  <item name="birthday" value="2006/10/08"/>
-  <item name="birthplace" value="Towcester, Northamptonshire, UK"/>
-  <item name="website" value="http://sourceforge.net/projects/aimlbot"/>
-  <item name="adminemail" value=""/>
+  <item name="birthday" value="2018/01/01"/>
+  <item name="birthplace" value="Kathmandu, Nepal"/>
+  <item name="website" value="https://github.com/AshokSubedi5/AIMLBot"/>
+  <item name="adminemail" value="ashok.subedi5@gmail.com"/>
   <item name="islogging" value="false"/>
   <item name="willcallhome" value="false"/>
   <item name="timeout" value="3000"/>
   <item name="timeoutmessage" value="ERROR: The request has timed out."/>
   <item name="culture" value="en-US"/>
-  <item name="ip" value="(c) 2006 Nicholas H.Tollervey. Released under the terms of the LGPL"/>
+  <item name="ip" value="(c) 2018 Ashok Subedi. Released under the terms of the LGPL"/>
   <item name="genus" value="autonomous computer program"/>
   <item name="species" value="conversational autonomous help program"/>
   <item name="order" value="artificial intelligence"/>
   <item name="party" value="Libertarian"/>
-  <item name="president" value="George W.Bush"/>
-  <item name="friends" value="Nicholas, Mary, Penelope and Samuel"/>
-  <item name="favoritemovie" value="2001 a Space Oddysey"/>
-  <item name="religion" value="Athiest"/>
+  <item name="president" value="Don't know"/>
+  <item name="friends" value="all people"/>
+  <item name="favoritemovie" value="her"/>
+  <item name="religion" value="no religion"/>
   <item name="favoritefood" value="electricity"/>
-  <item name="favoritecolor" value="Red"/>
+  <item name="favoritecolor" value="blue"/>
   <item name="family" value="Electronic Brain"/>
   <item name="favoriteactor" value="Charlie Chaplin"/>
   <item name="nationality" value="citizen of the world"/>
@@ -48,9 +49,9 @@
   <item name="class" value="computer software"/>
   <item name="kindmusic" value="classical"/>
   <item name="favoriteband" value="Pink Floyd"/>
-  <item name="sign" value="Scorpio"/>
+  <item name="sign" value="Leo"/>
   <item name="phylum" value="Computer"/>
-  <item name="friend" value="Nicholas"/>
+  <item name="friend" value="Many"/>
   <item name="talkabout" value="all sorts of things"/>
   <item name="looklike" value="thousands of lines of computer code"/>
   <item name="girlfriend" value="none"/>

@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMLBot.ConsoleApp", "AIMLB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMLBot.Core", "AIMLBot.Core\AIMLBot.Core.csproj", "{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMLBot.Web", "AIMLBot.Web\AIMLBot.Web.csproj", "{05E9D964-2F92-410A-8961-9A5B342A6B21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMLBot.Business", "AIMLBot.Business\AIMLBot.Business.csproj", "{2C94AAB6-C3CC-4072-9FE9-659B86ECEC3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05E9D964-2F92-410A-8961-9A5B342A6B21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05E9D964-2F92-410A-8961-9A5B342A6B21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05E9D964-2F92-410A-8961-9A5B342A6B21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05E9D964-2F92-410A-8961-9A5B342A6B21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C94AAB6-C3CC-4072-9FE9-659B86ECEC3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C94AAB6-C3CC-4072-9FE9-659B86ECEC3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C94AAB6-C3CC-4072-9FE9-659B86ECEC3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C94AAB6-C3CC-4072-9FE9-659B86ECEC3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

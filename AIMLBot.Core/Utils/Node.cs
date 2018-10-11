@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace AIMLbot.Utils
+namespace AIMLBot.Core.Utils
 {
     /// <summary>
     /// Encapsulates a node in the graphmaster tree structure

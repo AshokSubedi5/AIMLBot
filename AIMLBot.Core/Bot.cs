@@ -9,9 +9,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Reflection;
 using System.Net.Mail;
 
-using AIMLbot.Utils;
+using AIMLBot.Core.Utils;
 
-namespace AIMLbot
+namespace AIMLBot.Core
 {
     /// <summary>
     /// Encapsulates a bot. If no settings.xml file is found or referenced the bot will try to
@@ -141,7 +141,7 @@ namespace AIMLbot
         {
             get
             {
-                return new Regex(this.GlobalSettings.grabSetting("stripperregex"),RegexOptions.IgnorePatternWhitespace);
+                return new Regex(this.GlobalSettings.grabSetting("stripperregex"), RegexOptions.IgnorePatternWhitespace);
             }
         }
 
@@ -239,7 +239,7 @@ namespace AIMLbot
                 switch (sex)
                 {
                     case -1:
-                        result=Gender.Unknown;
+                        result = Gender.Unknown;
                         break;
                     case 0:
                         result = Gender.Female;
@@ -262,8 +262,13 @@ namespace AIMLbot
         {
             get
             {
-                return Path.Combine(Environment.CurrentDirectory, this.GlobalSettings.grabSetting("aimldirectory"));
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.GlobalSettings.grabSetting("aimldirectory"));
             }
+        }
+
+        public string PathToUserFiles
+        {
+            get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.GlobalSettings.grabSetting("userdirectory")); }
         }
 
         /// <summary>
@@ -273,7 +278,7 @@ namespace AIMLbot
         {
             get
             {
-                return Path.Combine(Environment.CurrentDirectory, this.GlobalSettings.grabSetting("configdirectory"));
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.GlobalSettings.grabSetting("configdirectory"));
             }
         }
 
@@ -284,7 +289,7 @@ namespace AIMLbot
         {
             get
             {
-                return Path.Combine(Environment.CurrentDirectory, this.GlobalSettings.grabSetting("logdirectory"));
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.GlobalSettings.grabSetting("logdirectory"));
             }
         }
 
@@ -296,13 +301,13 @@ namespace AIMLbot
         /// <summary>
         /// The "brain" of the bot
         /// </summary>
-        public AIMLbot.Utils.Node Graphmaster;
+        public AIMLBot.Core.Utils.Node Graphmaster;
 
         /// <summary>
         /// If set to false the input from AIML files will undergo the same normalization process that
         /// user input goes through. If true the bot will assume the AIML is correct. Defaults to true.
         /// </summary>
-        public bool TrustAIML=true;
+        public bool TrustAIML = true;
 
         /// <summary>
         /// The maximum number of characters a "that" element of a path is allowed to be. Anything above
@@ -331,7 +336,15 @@ namespace AIMLbot
         /// </summary>
         public Bot()
         {
-            this.setup();  
+            this.isAcceptingUserInput = false;
+            this.setup();
+            this.loadSettings();
+            //var compiledAIMLPath = Path.Combine(this.PathToAIML, "compiledAIML.dat");
+            //if (File.Exists(compiledAIMLPath))
+            //    loadFromBinaryFile(compiledAIMLPath);
+            //else
+            this.loadAIMLFromFiles();
+            this.isAcceptingUserInput = true;
         }
 
         #region Settings methods
@@ -368,7 +381,8 @@ namespace AIMLbot
             this.Substitutions = new SettingsDictionary(this);
             this.DefaultPredicates = new SettingsDictionary(this);
             this.CustomTags = new Dictionary<string, TagHandler>();
-            this.Graphmaster = new AIMLbot.Utils.Node(); 
+
+            this.Graphmaster = new AIMLBot.Core.Utils.Node();
         }
 
         /// <summary>
@@ -377,8 +391,8 @@ namespace AIMLbot
         public void loadSettings()
         {
             // try a safe default setting for the settings xml file
-            string path = Path.Combine(Environment.CurrentDirectory, Path.Combine("config", "Settings.xml"));
-            this.loadSettings(path);          
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("config", "Settings.xml"));
+            this.loadSettings(path);
         }
 
         /// <summary>
@@ -397,15 +411,15 @@ namespace AIMLbot
             }
             if (!this.GlobalSettings.containsSettingCalled("name"))
             {
-                this.GlobalSettings.addSetting("name", "Unknown");
+                this.GlobalSettings.addSetting("name", "Bot");
             }
             if (!this.GlobalSettings.containsSettingCalled("botmaster"))
             {
-                this.GlobalSettings.addSetting("botmaster", "Unknown");
-            } 
+                this.GlobalSettings.addSetting("botmaster", "Ashok");
+            }
             if (!this.GlobalSettings.containsSettingCalled("master"))
             {
-                this.GlobalSettings.addSetting("botmaster", "Unknown");
+                this.GlobalSettings.addSetting("botmaster", "Ashok");
             }
             if (!this.GlobalSettings.containsSettingCalled("author"))
             {
@@ -425,11 +439,11 @@ namespace AIMLbot
             }
             if (!this.GlobalSettings.containsSettingCalled("birthplace"))
             {
-                this.GlobalSettings.addSetting("birthplace", "Towcester, Northamptonshire, UK");
+                this.GlobalSettings.addSetting("birthplace", "Softvision");
             }
             if (!this.GlobalSettings.containsSettingCalled("website"))
             {
-                this.GlobalSettings.addSetting("website", "http://sourceforge.net/projects/aimlbot");
+                this.GlobalSettings.addSetting("website", "http://ashok.subedi.com.np");
             }
             if (this.GlobalSettings.containsSettingCalled("adminemail"))
             {
@@ -517,7 +531,7 @@ namespace AIMLbot
             this.Substitutions.loadSettings(Path.Combine(this.PathToConfigFiles, this.GlobalSettings.grabSetting("substitutionsfile")));
 
             // Grab the splitters for this bot
-            this.loadSplitters(Path.Combine(this.PathToConfigFiles,this.GlobalSettings.grabSetting("splittersfile")));
+            this.loadSplitters(Path.Combine(this.PathToConfigFiles, this.GlobalSettings.grabSetting("splittersfile")));
         }
 
         /// <summary>
@@ -566,7 +580,7 @@ namespace AIMLbot
         /// <summary>
         /// The last message to be entered into the log (for testing purposes)
         /// </summary>
-        public string LastLogMessage=string.Empty;
+        public string LastLogMessage = string.Empty;
 
         /// <summary>
         /// Writes a (timestamped) message to the bot's log.
@@ -580,7 +594,7 @@ namespace AIMLbot
             if (this.IsLogging)
             {
                 this.LogBuffer.Add(DateTime.Now.ToString() + ": " + message + Environment.NewLine);
-                if (this.LogBuffer.Count > this.MaxLogBufferSize-1)
+                if (this.LogBuffer.Count > this.MaxLogBufferSize - 1)
                 {
                     // Write out to log file
                     DirectoryInfo logDirectory = new DirectoryInfo(this.PathToLogs);
@@ -589,8 +603,8 @@ namespace AIMLbot
                         logDirectory.Create();
                     }
 
-                    string logFileName = DateTime.Now.ToString("yyyyMMdd")+".log";
-                    FileInfo logFile = new FileInfo(Path.Combine(this.PathToLogs,logFileName));
+                    string logFileName = DateTime.Now.ToString("yyyyMMdd") + ".log";
+                    FileInfo logFile = new FileInfo(Path.Combine(this.PathToLogs, logFileName));
                     StreamWriter writer;
                     if (!logFile.Exists)
                     {
@@ -644,7 +658,7 @@ namespace AIMLbot
             {
                 // Normalize the input
                 AIMLLoader loader = new AIMLLoader(this);
-                AIMLbot.Normalize.SplitIntoSentences splitter = new AIMLbot.Normalize.SplitIntoSentences(this);
+                AIMLBot.Core.Normalize.SplitIntoSentences splitter = new AIMLBot.Core.Normalize.SplitIntoSentences(this);
                 string[] rawSentences = splitter.Transform(request.rawInput);
                 foreach (string sentence in rawSentences)
                 {
@@ -712,11 +726,11 @@ namespace AIMLbot
             // check for timeout (to avoid infinite loops)
             if (request.StartedOn.AddMilliseconds(request.bot.TimeOut) < DateTime.Now)
             {
-                request.bot.writeToLog("WARNING! Request timeout. User: " + request.user.UserID + " raw input: \"" + request.rawInput + "\" processing template: \""+query.Template+"\"");
+                request.bot.writeToLog("WARNING! Request timeout. User: " + request.user.UserID + " raw input: \"" + request.rawInput + "\" processing template: \"" + query.Template + "\"");
                 request.hasTimedOut = true;
                 return string.Empty;
             }
-                        
+
             // process the node
             string tagName = node.Name.ToLower();
             if (tagName == "template")
@@ -771,6 +785,7 @@ namespace AIMLbot
                             tagHandler = new AIMLTagHandlers.javascript(this, user, query, request, result, node);
                             break;
                         case "learn":
+                        case "forget":
                             tagHandler = new AIMLTagHandlers.learn(this, user, query, request, result, node);
                             break;
                         case "lowercase":
@@ -823,6 +838,16 @@ namespace AIMLbot
                             break;
                         case "version":
                             tagHandler = new AIMLTagHandlers.version(this, user, query, request, result, node);
+                            break;
+                        case "websearch":
+                        case "searchandlearn":
+                            tagHandler = new AIMLTagHandlers.websearch(this, user, query, request, result, node);
+                            break;
+                        case "news":
+                            tagHandler = new AIMLTagHandlers.news(this, user, query, request, result, node);
+                            break;
+                        case "quote":
+                            tagHandler = new AIMLTagHandlers.quote(this, user, query, request, result, node);
                             break;
                         default:
                             tagHandler = null;
@@ -889,7 +914,7 @@ namespace AIMLbot
                 TagHandler customTagHandler = (TagHandler)this.CustomTags[node.Name.ToLower()];
 
                 AIMLTagHandler newCustomTag = customTagHandler.Instantiate(this.LateBindingAssemblies);
-                if(object.Equals(null,newCustomTag))
+                if (object.Equals(null, newCustomTag))
                 {
                     return null;
                 }
@@ -968,7 +993,7 @@ namespace AIMLbot
                         // We've found a custom tag handling class
                         // so store the assembly and store it away in the Dictionary<,> as a TagHandler class for 
                         // later usage
-                        
+
                         // store Assembly
                         if (!this.LateBindingAssemblies.ContainsKey(tagDLL.FullName))
                         {
@@ -1003,8 +1028,8 @@ namespace AIMLbot
         /// <param name="request">the request object that encapsulates all sorts of useful information</param>
         public void phoneHome(string errorMessage, Request request)
         {
-            MailMessage msg = new MailMessage("donotreply@aimlbot.com",this.AdminEmail);
-            msg.Subject = "WARNING! AIMLBot has encountered a problem...";
+            MailMessage msg = new MailMessage("donotreply@AIMLBot.Core.com", this.AdminEmail);
+            msg.Subject = "WARNING! AIMLBot.Core has encountered a problem...";
             string message = @"Dear Botmaster,
 
 This is an automatically generated email to report errors with your bot.
@@ -1027,20 +1052,20 @@ Please check your AIML!
 
 Regards,
 
-The AIMLbot program.
+The AIMLBot.Core program.
 ";
             message = message.Replace("*TIME*", DateTime.Now.ToString());
             message = message.Replace("*MESSAGE*", errorMessage);
             message = message.Replace("*RAWINPUT*", request.rawInput);
             message = message.Replace("*USER*", request.user.UserID);
             StringBuilder paths = new StringBuilder();
-            foreach(string path in request.result.NormalizedPaths)
+            foreach (string path in request.result.NormalizedPaths)
             {
-                paths.Append(path+Environment.NewLine);
+                paths.Append(path + Environment.NewLine);
             }
             message = message.Replace("*PATHS*", paths.ToString());
             msg.Body = message;
-            msg.IsBodyHtml=false;
+            msg.IsBodyHtml = false;
             try
             {
                 if (msg.To.Count > 0)

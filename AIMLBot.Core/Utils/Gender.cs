@@ -1,6 +1,6 @@
 using System;
 
-namespace AIMLbot.Utils
+namespace AIMLBot.Core.Utils
 {
     /// <summary>
     /// Used to determine the gender of things

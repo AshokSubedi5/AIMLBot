@@ -1,6 +1,6 @@
 using System;
 
-namespace AIMLbot.Utils
+namespace AIMLBot.Core.Utils
 {
     /// <summary>
     /// Denotes what part of the input path a node represents.

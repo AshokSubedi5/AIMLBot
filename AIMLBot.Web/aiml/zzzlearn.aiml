@@ -1,0 +1,113 @@
+<aiml>
+  <category>
+    <pattern>google *</pattern>
+    <template>
+      <websearch>
+        <star />
+      </websearch>
+    </template>
+  </category>
+  <category>
+    <pattern>search *</pattern>
+    <template>
+      <websearch>
+        <star />
+      </websearch>
+    </template>
+  </category>
+  <category>
+    <pattern>searchandlearn *</pattern>
+    <template>
+      <searchandlearn>
+        <star />
+      </searchandlearn>
+    </template>
+  </category>
+  <category>
+    <pattern>RELOAD AIML</pattern>
+    <template>
+      Okay.
+      <think>
+        <learn name="fromfile">aiml</learn>
+      </think>
+    </template>
+  </category>
+  <category>
+    <pattern>LEARN * IS *</pattern>
+    <template>
+      Ok I will learn that <star index="2"/> is <star index="1"/>.
+      <learn name="fromtag">
+        <star index="2"/>,
+        <star index="1"/>
+      </learn>
+    </template>
+  </category>
+  <category>
+    <pattern>forget *</pattern>
+    <template>
+      Ok I will forget that <star />
+      <forget>
+        <star />
+      </forget>
+    </template>
+  </category>
+  <category>
+    <pattern>* is *</pattern>
+    <template>
+      <think>
+        <set name ="temp">
+          <get>
+            <star index="1"/>
+          </get>
+        </set>
+      </think>
+      <condition name="temp" value="">
+      </condition>
+      <condition name="temp" value="*">
+        You said <star index="1"/> is <get>
+          <star index="1"/>
+        </get>
+      </condition>
+    </template>
+  </category>
+  <category>
+    <pattern>test</pattern>
+    <template>
+      Hi, I am <get name = "N"/>
+    </template>
+  </category>
+
+  <category>
+    <pattern>date</pattern>
+    <template>
+      <date format ="MM/dd/yyyy"></date>
+    </template>
+  </category>
+
+  <category>
+    <pattern>day</pattern>
+    <template>
+      Today is <date format ="dd MMM, yyyy"></date>
+    </template>
+  </category>
+
+  <category>
+    <pattern>news</pattern>
+    <pattern>* news *</pattern>
+    <pattern>news *</pattern>
+    <pattern>* news</pattern>
+    <template>
+      <news description="true"></news>
+    </template>
+  </category>
+
+  <category>
+    <pattern>quote</pattern>
+    <pattern>* quote *</pattern>
+    <pattern>quote *</pattern>
+    <pattern>* quote</pattern>
+    <template>
+      <quote />
+    </template>
+  </category>
+</aiml>
