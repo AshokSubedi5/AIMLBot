@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    #chartAreaLog, #chartAreaUser {
+        height: 350px;
+        max-width: 80%;
+        width: 80%;
+        background-color: whitesmoke;
+        border: solid 1px #ddd;
+    }
+
+    #chartAreaLog {
+        padding: 7px;
+        overflow: scroll;
+    }
+
+        #chartAreaLog::-webkit-scrollbar {
+            width: 0px;
+            background: transparent; /* make scrollbar transparent */
+        }
+
+    #txtMessage {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .br {
+        padding-top: 4px;
+    }
+</style>
+
+
+
+<h2>Test</h2>
+
+
+<div class="row">
+    <div class="col-md-10 col-sm-10 col-xs-10">
+        <div id="chartAreaLog"></div>
+    </div>
+</div>
+<div class="br"></div>
+<div class="row">
+
+    <div class="col-md-6">
+        <input type="text" id="txtMessage" placeholder="Type message here ..." class="form-control" />
+    </div>
+    <div class="col-md-2">
+        <input type="button" id="SendMessage" class="form-control" value="Send" />
+    </div>
+</div>
+
+@section Scripts {    
+    <script src="~/wwwroot/js/aiml.js"></script>
+}
+

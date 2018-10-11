@@ -51,19 +51,29 @@
       </forget>
     </template>
   </category>
-
   <category>
     <pattern>* is *</pattern>
     <template>
-      You said <star index="1"/> is <get>
-        <star index="1"/>
-      </get>
+      <think>
+        <set name ="temp">
+          <get>
+            <star index="1"/>
+          </get>
+        </set>
+      </think>
+      <condition name="temp" value="">
+      </condition>
+      <condition name="temp" value="*">
+        You said <star index="1"/> is <get>
+          <star index="1"/>
+        </get>
+      </condition>
     </template>
   </category>
   <category>
     <pattern>test</pattern>
     <template>
-      Hi, I am <get name = "name"/>
+      Hi, I am <get name = "N"/>
     </template>
   </category>
 

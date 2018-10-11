@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AIMLBot.Business;
 
 
 namespace AIMLBot.ConsoleApp
 {
     class Program
     {
-        static AIML bot;
+        static AIMLBLL bot;
         static void Main(string[] args)
         {
             string input = "start";
-            bot = new AIML();
+            bot = new AIMLBLL();
             while (input != "exit")
             {
                 input = bot.getInput();
