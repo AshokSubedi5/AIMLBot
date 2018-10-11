@@ -32,6 +32,8 @@ namespace AIMLBot.Web.Controllers
         [HttpPost]
         public string Post(string msg)
         {
+            if(string.IsNullOrEmpty(msg))
+                return string.Empty;
             var output = aiml.getOutput(msg);
             aiml.SaveUserInfo();
             return output;
